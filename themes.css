@@ -54,6 +54,17 @@ body[data-theme='white']{--scratch-a:#aab79a;--scratch-b:#6f7d5e}
 .deco--r{width:90vw;height:60vw;top:2%;right:-30vw;background-position:right center;transform:scaleX(-1)}
 .deco--bl{width:95vw;height:60vw;bottom:-12vw;left:-32vw;background-position:left center}
 .deco--br{width:95vw;height:60vw;bottom:-14vw;right:-32vw;background-position:right center;transform:scaleX(-1)}
+/* extra decoration positions for a fuller floral frame */
+.deco--t{width:60vw;height:42vw;top:-14vw;left:50%;margin-left:-30vw;background-position:center top}
+.deco--tl{width:60vw;height:42vw;top:-8vw;left:-20vw;background-position:left top}
+.deco--tr{width:60vw;height:42vw;top:-10vw;right:-20vw;background-position:right top;transform:scaleX(-1)}
+.deco--ml{width:46vw;height:46vw;top:38%;left:-18vw;background-position:left center}
+.deco--mr{width:46vw;height:46vw;top:42%;right:-18vw;background-position:right center;transform:scaleX(-1)}
+
+/* White blossom accents — reuse the white-theme flower image, shown in red theme */
+.deco--bloom{display:none;background-image:url('https://optim.tildacdn.net/tild6637-6363-4432-b364-633830313533/-/resize/360x/-/format/webp/noroot.png.webp');background-size:contain;background-repeat:no-repeat;background-position:center;filter:drop-shadow(0 14px 28px rgba(0,0,0,.25)) brightness(1.05)}
+body[data-theme='red'] .deco--bloom{display:block}
+body[data-theme='blue'] .deco--bloom,body[data-theme='white'] .deco--bloom{display:none}
 .deco--flower{background-size:contain;background-repeat:no-repeat;background-position:center;filter:drop-shadow(0 20px 36px rgba(107,15,29,.25))}
 .deco--flower.deco--l,
 .deco--flower.deco--br{background-image:url('https://optim.tildacdn.net/tild3166-6235-4730-b332-636366333436/-/resize/518x/-/format/webp/1ruby.png.webp')}

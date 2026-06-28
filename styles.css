@@ -96,14 +96,20 @@ body.is-locked{overflow:hidden;height:100svh}
 /* Sky hero — forehead gap fixed: optical centering + tighter eyebrow */
 .sky{position:relative;height:100vh;height:100svh;min-height:620px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:var(--hero-grad)}
 .sky__sun{position:absolute;top:14%;left:50%;transform:translateX(-50%);width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(255,249,224,.95),rgba(255,238,180,.25) 55%,transparent 70%);filter:blur(2px)}
-/* Hero video (red theme only) — sits above the gradient, under flowers + names */
+/* Hero video — sits above the gradient, under flowers + names */
 .sky__video{display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;opacity:0;pointer-events:none}
-body[data-theme='red'] .sky__video{display:block}
-body[data-theme='red'] .sky__video::after{content:''}
+body[data-theme='red'] .sky__video--red{display:block}
+body[data-theme='blue'] .sky__video--blue{display:block}
 body[data-theme='red'] .sky::before{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(42,3,9,.35) 0%,rgba(90,12,26,.25) 45%,rgba(42,3,9,.6) 100%)}
+body[data-theme='blue'] .sky::before{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(126,197,242,.30) 0%,rgba(169,216,245,.18) 45%,rgba(14,58,99,.45) 100%)}
 .sky__center{position:relative;z-index:2;text-align:center;padding:0 1.5rem;display:flex;flex-direction:column;align-items:center;justify-content:center;transform:translateY(-2vh)}
 .sky__eyebrow{font-size:.7rem;letter-spacing:.45em;text-transform:uppercase;color:var(--c-deep);margin-bottom:.9rem;opacity:0}
 .sky__title{font-family:var(--serif);font-weight:300;display:flex;flex-direction:column;align-items:center;line-height:1;color:var(--c-deep)}
+/* Legible hero text when a background video plays (blue + red) */
+body[data-theme='red'] .sky__eyebrow,body[data-theme='blue'] .sky__eyebrow{color:#fff;text-shadow:0 2px 14px rgba(0,0,0,.6)}
+body[data-theme='red'] .sky__title,body[data-theme='blue'] .sky__title{color:#fff;text-shadow:0 3px 24px rgba(0,0,0,.55),0 1px 4px rgba(0,0,0,.5)}
+body[data-theme='red'] .sky__hint,body[data-theme='blue'] .sky__hint{color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.6)}
+body[data-theme='red'] .sky__amp,body[data-theme='blue'] .sky__amp{text-shadow:0 2px 14px rgba(0,0,0,.5)}
 .sky__name{font-size:clamp(3.6rem,22vw,8rem);display:flex;overflow:hidden;line-height:1.02}
 .sky__name .char{display:inline-block;transform:translateY(110%)}
 .sky__amp{font-size:clamp(1.6rem,8vw,3rem);color:var(--accent);font-style:italic;margin:.1em 0}

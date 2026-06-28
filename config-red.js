@@ -69,9 +69,10 @@ window.WEDDING_CONFIG = {
      Override: 'ring' | 'flower' | 'star' | 'bird' */
   timelineMarker: 'auto',
 
-  /* ---- Audio: soft background track. Leave url '' to hide the toggle. ---- */
+  /* ---- Audio: soft background track. Leave url '' to hide the toggle.
+     Add your own track URL here later to enable the mute button. ---- */
   audio: {
-    url: 'https://cdn.pixabay.com/download/audio/2022/01/18/audio_8db1f1b5a5.mp3?filename=romantic-piano-10711.mp3',
+    url: '',
   },
 
   /* ---- Envelope intro ("click to open") ---- */

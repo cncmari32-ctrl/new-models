@@ -79,8 +79,9 @@ function startIntro(){
     .add(heroIn,'-=.2');
 }
 function playHeroVideo(){
-  const v=document.getElementById('heroVideo');
-  if(!v||(CFG.THEME||'blue')!=='red') return;
+  const theme=CFG.THEME||'blue';
+  const v=theme==='red'?document.getElementById('heroVideo'):(theme==='blue'?document.getElementById('heroVideoBlue'):null);
+  if(!v) return;
   v.muted=true;
   const go=()=>{v.play().catch(()=>{});gsap.to(v,{opacity:1,duration:1.4,ease:'sine.out'});};
   if(v.readyState>=2) go(); else { v.preload='auto'; v.load(); v.addEventListener('canplay',go,{once:true}); }
@@ -395,7 +396,7 @@ let introRan = false;
 function triggerIntro() {
   if (introRan) return;
   introRan = true;
-  if (CFG.envelope?.enabled === false) { startIntro(); }
+  if (typeof CFG !== 'undefined' && CFG.envelope?.enabled === false) { startIntro(); }
 }
 window.addEventListener('load', triggerIntro);
 document.addEventListener('DOMContentLoaded', () => setTimeout(triggerIntro, 2000));
