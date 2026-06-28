@@ -56,21 +56,36 @@ function heroIn(){
 }
 gsap.set('.sky__eyebrow,.sky__hint',{y:20});
 
-/* DECORATION PARTING on scroll (pin the hero). Targets the active theme's
-   visible .deco layers by position class, so it works for clouds/flowers/svg. */
+/* DECORATION on scroll (pin the hero). Behaviour depends on theme:
+   - blue (clouds): part outward to reveal
+   - red/white (flowers): bloom & grow from small to full as you scroll */
 const sky=document.getElementById('sky');
 if(sky){
+  const theme=CFG.THEME||'blue';
   const vis=(sel)=>gsap.utils.toArray(sel).filter((el)=>getComputedStyle(el).display!=='none');
   const ct=gsap.timeline({scrollTrigger:{trigger:'.sky',start:'top top',end:'+=120%',pin:true,scrub:1}});
-  ct.to(vis('.deco--l'),{xPercent:-120,rotation:-8,ease:'none'},0)
-    .to(vis('.deco--r'),{xPercent:120,rotation:8,ease:'none'},0)
-    .to(vis('.deco--bl'),{yPercent:80,xPercent:-40,ease:'none'},0)
-    .to(vis('.deco--br'),{yPercent:80,xPercent:40,ease:'none'},0)
-    .to('.sky__center',{scale:1.08,opacity:0,ease:'none'},0)
-    .to('.sky__sun',{scale:1.3,opacity:.4,ease:'none'},0);
-  /* idle drift */
-  gsap.to(vis('.deco--l'),{x:'+=14',duration:6,repeat:-1,yoyo:true,ease:'sine.inOut'});
-  gsap.to(vis('.deco--r'),{x:'-=14',duration:7,repeat:-1,yoyo:true,ease:'sine.inOut'});
+
+  if(theme==='blue'){
+    /* clouds part outward */
+    ct.to(vis('.deco--l'),{xPercent:-120,rotation:-8,ease:'none'},0)
+      .to(vis('.deco--r'),{xPercent:120,rotation:8,ease:'none'},0)
+      .to(vis('.deco--bl'),{yPercent:80,xPercent:-40,ease:'none'},0)
+      .to(vis('.deco--br'),{yPercent:80,xPercent:40,ease:'none'},0)
+      .to('.sky__center',{scale:1.08,opacity:0,ease:'none'},0)
+      .to('.sky__sun',{scale:1.3,opacity:.4,ease:'none'},0);
+    gsap.to(vis('.deco--l'),{x:'+=14',duration:6,repeat:-1,yoyo:true,ease:'sine.inOut'});
+    gsap.to(vis('.deco--r'),{x:'-=14',duration:7,repeat:-1,yoyo:true,ease:'sine.inOut'});
+  } else {
+    /* flowers bloom: start tiny + faded, grow to full while gently rotating */
+    const flowers=vis('.deco');
+    gsap.set(flowers,{scale:.15,opacity:0,transformOrigin:'center center'});
+    flowers.forEach((f,i)=>{
+      ct.to(f,{scale:1,opacity:1,rotation:(i%2?6:-6),ease:'power2.out'},0);
+    });
+    ct.to('.sky__center',{y:-10,ease:'none'},0);
+    /* gentle idle sway after bloom */
+    flowers.forEach((f,i)=>gsap.to(f,{rotation:(i%2?'+=3':'-=3'),duration:5+i,repeat:-1,yoyo:true,ease:'sine.inOut'}));
+  }
 }
 
 /* Parallax */
