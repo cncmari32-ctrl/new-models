@@ -114,8 +114,11 @@ gsap.utils.toArray('[data-fade]').forEach((el)=>{gsap.to(el,{opacity:1,y:0,durat
   function size(){
     const r=card.getBoundingClientRect();
     canvas.width=r.width;canvas.height=r.height;
+    const cs=getComputedStyle(document.body);
+    const a=(cs.getPropertyValue('--scratch-a')||'#9fd0ef').trim();
+    const b=(cs.getPropertyValue('--scratch-b')||'#1f6fb2').trim();
     const g=ctx.createLinearGradient(0,0,r.width,r.height);
-    g.addColorStop(0,'#9fd0ef');g.addColorStop(1,'#1f6fb2');
+    g.addColorStop(0,a);g.addColorStop(1,b);
     ctx.fillStyle=g;ctx.fillRect(0,0,r.width,r.height);
     ctx.fillStyle='rgba(255,255,255,.9)';ctx.font='600 14px Jost, sans-serif';ctx.textAlign='center';
     ctx.fillText('SCRATCH HERE',r.width/2,r.height/2);
@@ -145,6 +148,57 @@ const cd={};document.querySelectorAll('[data-unit]').forEach((el)=>cd[el.dataset
 function tick(){let d=Math.max(0,WEDDING_DATE-Date.now());const o={};o.days=Math.floor(d/U.days);d%=U.days;o.hours=Math.floor(d/U.hours);d%=U.hours;o.minutes=Math.floor(d/U.minutes);d%=U.minutes;o.seconds=Math.floor(d/U.seconds);for(const k in cd){const v=String(o[k]).padStart(2,'0');if(cd[k].textContent!==v)cd[k].textContent=v;}}
 setInterval(tick,1000);tick();
 gsap.from('.cd',{opacity:0,y:30,scale:.9,duration:.8,stagger:.12,ease:'back.out(1.6)',scrollTrigger:{trigger:'.countdown',start:'top 75%'}});
+
+/* ============ Schedule timeline ============ */
+(function schedule(){
+  const inner=document.getElementById('scheduleInner');
+  const items=CFG.schedule||[];
+  if(!inner||!items.length) return;
+
+  /* render items */
+  items.forEach((it)=>{
+    const row=document.createElement('div');
+    row.className='tl';
+    row.setAttribute('data-fade','');
+    row.innerHTML=`<span class="tl__dot"></span><div><div class="tl__time">${it.time}</div><div class="tl__title">${it.title}</div><div class="tl__desc">${it.desc||''}</div></div>`;
+    inner.appendChild(row);
+  });
+
+  /* reveal each row */
+  gsap.utils.toArray('.tl').forEach((row,i)=>{
+    gsap.fromTo(row,{opacity:0,y:40},{opacity:1,y:0,duration:.7,ease:'power3.out',scrollTrigger:{trigger:row,start:'top 85%'}});
+    gsap.fromTo(row.querySelector('.tl__dot'),{scale:0},{scale:1,duration:.5,ease:'back.out(2)',scrollTrigger:{trigger:row,start:'top 85%'}});
+  });
+
+  /* progress line grows with scroll */
+  const prog=document.getElementById('scheduleProgress');
+  if(prog) gsap.to(prog,{height:'100%',ease:'none',scrollTrigger:{trigger:inner,start:'top 60%',end:'bottom 70%',scrub:.4}});
+
+  /* traveling marker (theme-based icon) */
+  const marker=document.getElementById('scheduleMarker');
+  const ICONS={
+    ring:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="15" r="6"/><path d="M9 6l3-3 3 3-3 3z"/></svg>',
+    flower:'<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="6" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="12" r="3"/><circle cx="9" cy="18" r="3"/><circle cx="15" cy="18" r="3"/><circle cx="12" cy="12" r="2.4" fill="#fff"/></svg>',
+    star:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.6 6.6L21 9.3l-5 4.5L17.5 21 12 17.3 6.5 21 8 13.8l-5-4.5 6.4-.7z"/></svg>',
+    bird:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 12c4-4 8-4 10 0 2-4 6-4 10 0"/></svg>',
+  };
+  const byTheme={blue:'bird',red:'flower',white:'star'};
+  let key=CFG.timelineMarker&&CFG.timelineMarker!=='auto'?CFG.timelineMarker:(byTheme[CFG.THEME]||'ring');
+  marker.innerHTML=ICONS[key]||ICONS.ring;
+
+  ScrollTrigger.create({
+    trigger:inner,start:'top 60%',end:'bottom 70%',
+    onUpdate:(self)=>{
+      const r=inner.getBoundingClientRect();
+      const y=r.top+r.height*self.progress;
+      gsap.set(marker,{x:window.innerWidth/2,y,opacity:1,rotation:self.progress*360});
+    },
+    onLeave:()=>gsap.to(marker,{opacity:0,duration:.3}),
+    onLeaveBack:()=>gsap.to(marker,{opacity:0,duration:.3}),
+    onEnter:()=>gsap.to(marker,{opacity:1,duration:.3}),
+    onEnterBack:()=>gsap.to(marker,{opacity:1,duration:.3}),
+  });
+})();
 
 /* Horizontal gallery + mask reveal */
 const track=document.getElementById('galleryTrack');
