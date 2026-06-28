@@ -1,0 +1,12 @@
+# GitLab Pages deployment for a static site
+pages:
+  stage: deploy
+  image: busybox
+  script:
+    - mkdir -p public
+    - cp index.html styles.css script.js public/
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
