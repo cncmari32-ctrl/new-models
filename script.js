@@ -143,7 +143,14 @@ const success=document.getElementById('rsvpSuccess');
 form?.addEventListener('submit',(e)=>{
   e.preventDefault();
   if(!form.checkValidity()){gsap.fromTo(form,{x:-8},{x:0,duration:.4,ease:'elastic.out(1,0.3)'});form.reportValidity();return;}
-  try{localStorage.setItem('rsvp',JSON.stringify(Object.fromEntries(new FormData(form).entries())));}catch(_){}
+  const data=Object.fromEntries(new FormData(form).entries());
+  try{localStorage.setItem('rsvp',JSON.stringify(data));}catch(_){}
+  /* Send to Google Sheet if endpoint configured (see README) */
+  const endpoint=CFG.rsvpEndpoint;
+  if(endpoint){
+    const body=new URLSearchParams(data);
+    fetch(endpoint,{method:'POST',body}).catch(()=>{});
+  }
   gsap.to(form,{opacity:0,y:-20,duration:.5,ease:'power2.in',onComplete:()=>{form.style.display='none';success.classList.add('is-visible');gsap.from(success,{opacity:0,y:20,duration:.7,ease:'power3.out'});gsap.from('.rsvp__check',{scale:0,rotate:-45,duration:.7,ease:'back.out(2)'});}});
 });
 
