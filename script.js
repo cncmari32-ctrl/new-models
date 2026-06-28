@@ -229,4 +229,11 @@ form?.addEventListener('submit',(e)=>{
 });
 
 /* Init */
-window.addEventListener('load',intro);
+let introRan = false;
+function safeIntro() {
+  if (introRan) return;
+  introRan = true;
+  intro();
+}
+window.addEventListener('load', safeIntro);
+document.addEventListener('DOMContentLoaded', () => setTimeout(safeIntro, 2000));

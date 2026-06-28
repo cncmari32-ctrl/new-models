@@ -39,7 +39,7 @@ body{font-family:var(--sans);background:var(--sky-low);color:var(--ink);overflow
 [data-fade]{opacity:0;transform:translateY(40px)}
 
 /* Sky hero */
-.sky{position:relative;height:100svh;min-height:620px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:var(--hero-grad)}
+.sky{position:relative;height:100vh;height:100svh;min-height:620px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:var(--hero-grad)}
 .sky__sun{position:absolute;top:14%;left:50%;transform:translateX(-50%);width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(255,249,224,.95),rgba(255,238,180,.25) 55%,transparent 70%);filter:blur(2px)}
 .sky__birds{position:absolute;inset:0;background-image:radial-gradient(2px 2px at 20% 30%,rgba(14,58,99,.4),transparent),radial-gradient(2px 2px at 70% 25%,rgba(14,58,99,.3),transparent),radial-gradient(2px 2px at 45% 40%,rgba(14,58,99,.25),transparent)}
 .sky__center{position:relative;z-index:2;text-align:center;padding:0 1.5rem}
