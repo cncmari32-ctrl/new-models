@@ -350,7 +350,7 @@ form?.addEventListener('submit',(e)=>{
   const data=Object.fromEntries(new FormData(form).entries());
   try{localStorage.setItem('rsvp',JSON.stringify(data));}catch(_){}
   const endpoint=CFG.rsvpEndpoint;
-  if(endpoint){fetch(endpoint,{method:'POST',body:new URLSearchParams(data)}).catch(()=>{});}
+  if(endpoint){fetch(endpoint,{method:'POST',body:new URLSearchParams(data),mode:'no-cors'}).catch(()=>{});}
   if(data.attending==='yes') burst(window.innerWidth/2,window.innerHeight*0.5,120);
   if(data.message&&data.message.trim()) addGuestNote({name:data.name,message:data.message},true);
   gsap.to(form,{opacity:0,y:-20,duration:.5,ease:'power2.in',onComplete:()=>{form.style.display='none';success.classList.add('is-visible');gsap.from(success,{opacity:0,y:20,duration:.7,ease:'power3.out'});gsap.from('.rsvp__check',{scale:0,rotate:-45,duration:.7,ease:'back.out(2)'});}});
