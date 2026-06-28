@@ -53,6 +53,19 @@ window.WEDDING_CONFIG = {
   /* ---- Quote shown in the reveal section ---- */
   quote: 'We invite you to share in the beginning of forever.',
 
+  /* ---- Schedule for the day (timeline). Add/remove freely. ---- */
+  schedule: [
+    { time: '13:00', title: 'Welcome',   desc: 'Guests arrive & refreshments' },
+    { time: '14:00', title: 'Lunch',     desc: 'A seated celebratory meal' },
+    { time: '16:00', title: 'Ceremony',  desc: 'Exchange of vows' },
+    { time: '18:00', title: 'First Dance',desc: 'The newlyweds open the floor' },
+    { time: '20:00', title: 'Reception', desc: 'Dinner, toasts & dancing' },
+  ],
+
+  /* Marker that travels down the timeline.
+     Auto-picks per theme, override here: 'ring' | 'flower' | 'star' | 'bird' */
+  timelineMarker: 'auto',
+
   /* ---- RSVP ----
      Point this at a Google Apps Script web app bound to your Google Sheet.
      See README for the 6-line Apps Script to paste. Leave '' to just store

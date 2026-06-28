@@ -40,6 +40,11 @@ body[data-theme='white'] .deco--svg{display:block}
 body[data-theme='white'] .deco--cloud,
 body[data-theme='white'] .deco--flower{display:none}
 
+/* Per-theme scratch overlay colors (read by script.js) */
+body[data-theme='blue']{--scratch-a:#9fd0ef;--scratch-b:#1f6fb2}
+body[data-theme='red']{--scratch-a:#8c1428;--scratch-b:#2a0309}
+body[data-theme='white']{--scratch-a:#aab79a;--scratch-b:#6f7d5e}
+
 /* ---------- Decorative asset layers (shared positioning) ---------- */
 .deco{position:absolute;z-index:3;pointer-events:none;will-change:transform}
 
