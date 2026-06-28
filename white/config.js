@@ -21,13 +21,10 @@ window.WEDDING_CONFIG = {
     monogram: 'E & J',          // shown in footer
   },
 
-  /* ---- Date & time ----
-     date: ISO string used for the live countdown.
-     display: how the date is shown on the page.
-  */
+  /* ---- Date & time ---- */
   date: '2026-09-26T16:00:00',
   display: {
-    pretty: '26 · 09 · 2026',
+    pretty: '26 \u00b7 09 \u00b7 2026',
     eyebrow: 'Together with their families',
   },
 
@@ -35,13 +32,19 @@ window.WEDDING_CONFIG = {
   address: {
     venue: 'Villa Serbelloni',
     line: 'Lake Como, Italy',
-    // Full address used to build the Google Maps embed + directions link:
     query: 'Grand Hotel Villa Serbelloni, Bellagio, Lake Como, Italy',
   },
 
   /* ---- Ceremony & reception details ---- */
   ceremony:  { title: 'The Ceremony',  time: '4:00 in the afternoon', place: 'Chapel of the Rose<br>Lake Como, Italy' },
   reception: { title: 'The Reception', time: '6:30 in the evening',    place: 'Villa Serbelloni<br>Dinner, dancing &amp; celebration' },
+
+  /* ---- Calendar event ("Add to calendar" .ics button) ---- */
+  calendar: {
+    title: 'Elena & James — Wedding',
+    durationHours: 6,
+    details: 'We would be honoured to have you celebrate with us.',
+  },
 
   /* ---- Dress code (per theme; the active theme's palette is shown) ---- */
   dressCode: {
@@ -62,15 +65,28 @@ window.WEDDING_CONFIG = {
     { time: '20:00', title: 'Reception', desc: 'Dinner, toasts & dancing' },
   ],
 
-  /* Marker that travels down the timeline.
-     Auto-picks per theme, override here: 'ring' | 'flower' | 'star' | 'bird' */
+  /* Marker that travels down the timeline. 'auto' picks per theme.
+     Override: 'ring' | 'flower' | 'star' | 'bird' */
   timelineMarker: 'auto',
 
+  /* ---- Audio: soft background track. Leave url '' to hide the toggle. ---- */
+  audio: {
+    url: 'https://cdn.pixabay.com/download/audio/2022/01/18/audio_8db1f1b5a5.mp3?filename=romantic-piano-10711.mp3',
+  },
+
+  /* ---- Envelope intro ("click to open") ---- */
+  envelope: {
+    enabled: true,
+    note: 'Click to open',
+  },
+
   /* ---- RSVP ----
-     Point this at a Google Apps Script web app bound to your Google Sheet.
-     See README for the 6-line Apps Script to paste. Leave '' to just store
-     replies locally (demo mode).
-  */
-  rsvpEndpoint: '',  // e.g. 'https://script.google.com/macros/s/AKfycb.../exec'
+     Point at a Google Apps Script web app bound to your Google Sheet.
+     Leave '' to store replies locally (demo mode). */
+  rsvpEndpoint: '',
   rsvpDeadline: 'Kindly reply by the first of August.',
+
+  /* ---- Guestbook: reads notes from the same Sheet (GET -> JSON).
+     Leave '' to show demo notes. Usually the same /exec URL as rsvpEndpoint. */
+  guestbookEndpoint: '',
 };
