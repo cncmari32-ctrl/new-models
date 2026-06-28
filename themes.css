@@ -1,0 +1,64 @@
+/* =====================================================================
+   THEMES — same concept, different palette + decorative assets.
+   The active theme is applied via <body data-theme="..."> (set by config).
+   Decorative assets per theme:
+     blue  -> clouds   (.deco--cloud)
+     red   -> flowers  (.deco--flower)
+     white -> SVG line art (.deco--svg)
+   ===================================================================== */
+
+/* ---------- BLUE (sky + clouds) ---------- */
+body[data-theme='blue']{
+  --sky-top:#7ec5f2;--sky-mid:#a9d8f5;--sky-low:#dff0fb;
+  --c1:#1f6fb2;--c2:#a9d8f5;--c-deep:#0e3a63;--ink:#0b2238;
+  --accent:#d8b15a;--paper:#f3f8fd;
+  --hero-grad:linear-gradient(180deg,#7ec5f2 0%,#a9d8f5 55%,#dff0fb 100%);
+}
+body[data-theme='blue'] .deco--cloud{display:block}
+body[data-theme='blue'] .deco--flower,
+body[data-theme='blue'] .deco--svg{display:none}
+
+/* ---------- RED (warm + flowers) ---------- */
+body[data-theme='red']{
+  --sky-top:#f7d9dd;--sky-mid:#f1bcc6;--sky-low:#fff4f3;
+  --c1:#a11d2e;--c2:#e08aa0;--c-deep:#6b0f1d;--ink:#3a0a12;
+  --accent:#caa15a;--paper:#fff4f3;
+  --hero-grad:linear-gradient(180deg,#f7d9dd 0%,#f1bcc6 55%,#fff4f3 100%);
+}
+body[data-theme='red'] .deco--flower{display:block}
+body[data-theme='red'] .deco--cloud,
+body[data-theme='red'] .deco--svg{display:none}
+
+/* ---------- WHITE (minimal + SVG line art) ---------- */
+body[data-theme='white']{
+  --sky-top:#ffffff;--sky-mid:#f6f5f2;--sky-low:#ffffff;
+  --c1:#1a1a1a;--c2:#b8b1a6;--c-deep:#111111;--ink:#1a1a1a;
+  --accent:#caa15a;--paper:#ffffff;
+  --hero-grad:linear-gradient(180deg,#ffffff 0%,#f6f5f2 60%,#ffffff 100%);
+}
+body[data-theme='white'] .deco--svg{display:block}
+body[data-theme='white'] .deco--cloud,
+body[data-theme='white'] .deco--flower{display:none}
+
+/* ---------- Decorative asset layers (shared positioning) ---------- */
+.deco{position:absolute;z-index:3;pointer-events:none;will-change:transform}
+
+/* Clouds (blue) — PNG image */
+.deco--cloud{background-image:url('https://cncmari32-ctrl.github.io/wedding-invite-demo/assets/tild3763-3632-4530-b736-383739313133_noroot.png');background-size:contain;background-repeat:no-repeat;filter:drop-shadow(0 24px 40px rgba(31,111,178,.18))}
+.deco--l{width:90vw;height:60vw;top:6%;left:-30vw;background-position:left center}
+.deco--r{width:90vw;height:60vw;top:2%;right:-30vw;background-position:right center;transform:scaleX(-1)}
+.deco--bl{width:95vw;height:60vw;bottom:-12vw;left:-32vw;background-position:left center}
+.deco--br{width:95vw;height:60vw;bottom:-14vw;right:-32vw;background-position:right center;transform:scaleX(-1)}
+
+/* Flowers (red) — pure CSS rose using radial gradients */
+.deco--flower{background:
+  radial-gradient(circle at 50% 50%, #a11d2e 0 12%, transparent 13%),
+  radial-gradient(circle at 50% 22%, #c43248 0 16%, transparent 17%),
+  radial-gradient(circle at 78% 40%, #c43248 0 16%, transparent 17%),
+  radial-gradient(circle at 68% 75%, #c43248 0 16%, transparent 17%),
+  radial-gradient(circle at 32% 75%, #c43248 0 16%, transparent 17%),
+  radial-gradient(circle at 22% 40%, #c43248 0 16%, transparent 17%);
+  filter:drop-shadow(0 20px 36px rgba(107,15,29,.25))}
+
+/* White theme decorative SVG drawn in index via .deco--svg svg */
+.deco--svg svg{width:100%;height:100%;stroke:var(--c2);fill:none}

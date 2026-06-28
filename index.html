@@ -3,63 +3,71 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Elena &amp; James · You're Invited</title>
-  <meta name="description" content="Beyond the clouds, a celebration awaits. You are invited to the wedding of Elena and James." />
+  <title>You're Invited</title>
+  <meta name="description" content="A wedding invitation." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="themes.css" />
 </head>
 <body>
   <div class="grain"></div>
   <div class="scroll-progress"><span id="progressBar"></span></div>
 
-  <!-- Loader -->
   <div class="loader" id="loader">
     <div class="loader__cloud"></div>
-    <p class="loader__text">Drifting in…</p>
+    <p class="loader__text">Loading…</p>
   </div>
 
   <main id="smooth-content">
 
-    <!-- HERO: sky + cloud parting reveal -->
+    <!-- HERO -->
     <section class="sky" id="sky">
       <div class="sky__sun"></div>
-      <div class="sky__birds" data-speed="0.6"></div>
-
       <div class="sky__center">
-        <p class="sky__eyebrow" data-fade>Somewhere above the clouds</p>
+        <p class="sky__eyebrow" data-fade data-cfg="eyebrow"></p>
         <h1 class="sky__title">
-          <span class="sky__name" data-split>Elena</span>
+          <span class="sky__name" data-split data-cfg="nameOne"></span>
           <span class="sky__amp">&amp;</span>
-          <span class="sky__name" data-split>James</span>
+          <span class="sky__name" data-split data-cfg="nameTwo"></span>
         </h1>
-        <p class="sky__hint" data-fade>Scroll to part the clouds</p>
+        <p class="sky__hint" data-fade>Scroll to reveal</p>
       </div>
 
-      <!-- Cloud layers (part on scroll) -->
-      <div class="cloud cloud--l" id="cloudL"></div>
-      <div class="cloud cloud--r" id="cloudR"></div>
-      <div class="cloud cloud--bl" id="cloudBL"></div>
-      <div class="cloud cloud--br" id="cloudBR"></div>
+      <!-- Decorative layers (only the active theme's set is shown) -->
+      <div class="deco deco--cloud deco--l" id="decoL"></div>
+      <div class="deco deco--cloud deco--r" id="decoR"></div>
+      <div class="deco deco--cloud deco--bl" id="decoBL"></div>
+      <div class="deco deco--cloud deco--br" id="decoBR"></div>
+
+      <div class="deco deco--flower deco--l" id="flL"></div>
+      <div class="deco deco--flower deco--r" id="flR"></div>
+      <div class="deco deco--flower deco--bl" id="flBL"></div>
+      <div class="deco deco--flower deco--br" id="flBR"></div>
+
+      <div class="deco deco--svg deco--l" id="svL"><svg viewBox="0 0 300 300"><circle cx="150" cy="150" r="120" stroke-width="1"/><circle cx="150" cy="150" r="90" stroke-width="1"/></svg></div>
+      <div class="deco deco--svg deco--r" id="svR"><svg viewBox="0 0 300 300"><path d="M40 260 C 120 60, 180 60, 260 260" stroke-width="1"/></svg></div>
+      <div class="deco deco--svg deco--bl" id="svBL"><svg viewBox="0 0 300 300"><path d="M20 150 C 90 40, 210 40, 280 150" stroke-width="1"/></svg></div>
+      <div class="deco deco--svg deco--br" id="svBR"><svg viewBox="0 0 300 300"><path d="M20 150 C 90 260, 210 260, 280 150" stroke-width="1"/></svg></div>
     </section>
 
-    <!-- INFO revealed beyond clouds -->
+    <!-- REVEAL -->
     <section class="reveal" id="reveal">
       <div class="reveal__inner">
-        <p class="reveal__kicker" data-fade>Together with their families</p>
-        <p class="reveal__quote split-words">We invite you to share in the beginning of forever.</p>
+        <p class="reveal__kicker" data-fade data-cfg="eyebrow"></p>
+        <p class="reveal__quote split-words" data-cfg="quote"></p>
       </div>
     </section>
 
-    <!-- SCRATCH TO REVEAL the date -->
+    <!-- SCRATCH -->
     <section class="scratch" id="scratch">
       <h2 class="section-title" data-fade>Scratch to reveal the date</h2>
       <p class="scratch__sub" data-fade>Use your finger or mouse</p>
       <div class="scratch__card" id="scratchCard">
         <div class="scratch__under">
           <span class="scratch__congrats">Congratulations</span>
-          <span class="scratch__date">26 · 09 · 2026</span>
+          <span class="scratch__date" data-cfg="pretty"></span>
           <span class="scratch__invited">You're invited</span>
         </div>
         <canvas class="scratch__canvas" id="scratchCanvas"></canvas>
@@ -84,15 +92,35 @@
     <section class="details" id="details">
       <div class="details__card" data-tilt data-fade>
         <span class="details__icon">✧</span>
-        <h3>The Ceremony</h3>
-        <p class="details__time">4:00 in the afternoon</p>
-        <p>Chapel of the Rose<br />Lake Como, Italy</p>
+        <h3 data-cfg="ceremonyTitle"></h3>
+        <p class="details__time" data-cfg="ceremonyTime"></p>
+        <p data-cfg="ceremonyPlace"></p>
       </div>
       <div class="details__card" data-tilt data-fade>
         <span class="details__icon">✦</span>
-        <h3>The Reception</h3>
-        <p class="details__time">6:30 in the evening</p>
-        <p>Villa Serbelloni<br />Dinner, dancing &amp; celebration</p>
+        <h3 data-cfg="receptionTitle"></h3>
+        <p class="details__time" data-cfg="receptionTime"></p>
+        <p data-cfg="receptionPlace"></p>
+      </div>
+    </section>
+
+    <!-- DRESS CODE -->
+    <section class="dress" id="dress">
+      <h2 class="section-title" data-fade>Dress code</h2>
+      <p class="dress__label" data-fade data-cfg="dressLabel"></p>
+      <div class="dress__swatches" id="dressSwatches" data-fade></div>
+    </section>
+
+    <!-- MAP -->
+    <section class="map" id="map">
+      <div class="map__text">
+        <h2 class="section-title" data-fade>Find your way</h2>
+        <p class="map__venue" data-fade data-cfg="venue"></p>
+        <p class="map__line" data-fade data-cfg="addrLine"></p>
+        <a class="map__btn" id="mapDirections" target="_blank" rel="noopener" data-fade>Get directions</a>
+      </div>
+      <div class="map__embed" data-fade>
+        <iframe id="mapFrame" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
       </div>
     </section>
 
@@ -114,7 +142,7 @@
     <section class="rsvp" id="rsvp">
       <div class="rsvp__inner">
         <h2 class="section-title" data-fade>Will you join us?</h2>
-        <p class="rsvp__sub" data-fade>Kindly reply by the first of August.</p>
+        <p class="rsvp__sub" data-fade data-cfg="deadline"></p>
         <form class="rsvp__form" id="rsvpForm" novalidate>
           <div class="field" data-fade><input type="text" id="name" name="name" required placeholder=" " /><label for="name">Full Name</label></div>
           <div class="field" data-fade><input type="email" id="email" name="email" required placeholder=" " /><label for="email">Email</label></div>
@@ -135,8 +163,8 @@
     </section>
 
     <footer class="footer" id="footer">
-      <div class="footer__monogram" data-fade>E &amp; J</div>
-      <p class="footer__date" data-fade>26 · 09 · 2026</p>
+      <div class="footer__monogram" data-fade data-cfg="monogram"></div>
+      <p class="footer__date" data-fade data-cfg="pretty"></p>
       <p class="footer__note" data-fade>Made with love</p>
     </footer>
   </main>
@@ -144,6 +172,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+  <script src="config.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

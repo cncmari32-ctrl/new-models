@@ -1,5 +1,43 @@
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
+/* ============ Apply config ============ */
+const CFG = window.WEDDING_CONFIG || {};
+document.body.setAttribute('data-theme', CFG.THEME || 'blue');
+
+const cfgMap = {
+  eyebrow: CFG.display?.eyebrow,
+  nameOne: CFG.names?.one,
+  nameTwo: CFG.names?.two,
+  monogram: CFG.names?.monogram,
+  pretty: CFG.display?.pretty,
+  quote: CFG.quote,
+  deadline: CFG.rsvpDeadline,
+  ceremonyTitle: CFG.ceremony?.title, ceremonyTime: CFG.ceremony?.time, ceremonyPlace: CFG.ceremony?.place,
+  receptionTitle: CFG.reception?.title, receptionTime: CFG.reception?.time, receptionPlace: CFG.reception?.place,
+  venue: CFG.address?.venue, addrLine: CFG.address?.line,
+  dressLabel: CFG.dressCode?.[CFG.THEME]?.label,
+};
+document.querySelectorAll('[data-cfg]').forEach((el)=>{
+  const v = cfgMap[el.dataset.cfg];
+  if (v != null) el.innerHTML = v;
+});
+
+/* Dress code swatches */
+(function(){
+  const wrap=document.getElementById('dressSwatches');
+  const colors=CFG.dressCode?.[CFG.THEME]?.colors||[];
+  if(wrap) colors.forEach((c)=>{const s=document.createElement('span');s.className='dress__swatch';s.style.background=c;wrap.appendChild(s);});
+})();
+
+/* Map embed + directions */
+(function(){
+  const q=encodeURIComponent(CFG.address?.query||'');
+  const frame=document.getElementById('mapFrame');
+  const dir=document.getElementById('mapDirections');
+  if(frame&&q) frame.src='https://www.google.com/maps?q='+q+'&output=embed';
+  if(dir&&q) dir.href='https://www.google.com/maps/dir/?api=1&destination='+q;
+})();
+
 /* Split hero names */
 document.querySelectorAll('[data-split]').forEach((el)=>{el.innerHTML=el.textContent.split('').map((c)=>`<span class="char">${c}</span>`).join('');});
 
@@ -18,21 +56,22 @@ function heroIn(){
 }
 gsap.set('.sky__eyebrow,.sky__hint',{y:20});
 
-/* CLOUD PARTING on scroll (pin the sky) */
+/* DECORATION PARTING on scroll (pin the hero). Targets the active theme's
+   visible .deco layers by position class, so it works for clouds/flowers/svg. */
 const sky=document.getElementById('sky');
 if(sky){
+  const vis=(sel)=>gsap.utils.toArray(sel).filter((el)=>getComputedStyle(el).display!=='none');
   const ct=gsap.timeline({scrollTrigger:{trigger:'.sky',start:'top top',end:'+=120%',pin:true,scrub:1}});
-  ct.to('#cloudL',{xPercent:-120,rotation:-8,ease:'none'},0)
-    .to('#cloudR',{xPercent:120,rotation:8,ease:'none'},0)
-    .to('#cloudBL',{yPercent:80,xPercent:-40,ease:'none'},0)
-    .to('#cloudBR',{yPercent:80,xPercent:40,ease:'none'},0)
+  ct.to(vis('.deco--l'),{xPercent:-120,rotation:-8,ease:'none'},0)
+    .to(vis('.deco--r'),{xPercent:120,rotation:8,ease:'none'},0)
+    .to(vis('.deco--bl'),{yPercent:80,xPercent:-40,ease:'none'},0)
+    .to(vis('.deco--br'),{yPercent:80,xPercent:40,ease:'none'},0)
     .to('.sky__center',{scale:1.08,opacity:0,ease:'none'},0)
     .to('.sky__sun',{scale:1.3,opacity:.4,ease:'none'},0);
+  /* idle drift */
+  gsap.to(vis('.deco--l'),{x:'+=14',duration:6,repeat:-1,yoyo:true,ease:'sine.inOut'});
+  gsap.to(vis('.deco--r'),{x:'-=14',duration:7,repeat:-1,yoyo:true,ease:'sine.inOut'});
 }
-
-/* Drifting idle motion on clouds */
-gsap.to('#cloudL',{x:'+=14',duration:6,repeat:-1,yoyo:true,ease:'sine.inOut'});
-gsap.to('#cloudR',{x:'-=14',duration:7,repeat:-1,yoyo:true,ease:'sine.inOut'});
 
 /* Parallax */
 gsap.utils.toArray('[data-speed]').forEach((el)=>{const s=parseFloat(el.dataset.speed);gsap.to(el,{yPercent:(1-s)*30,ease:'none',scrollTrigger:{trigger:el.parentElement,start:'top bottom',end:'bottom top',scrub:true}});});
