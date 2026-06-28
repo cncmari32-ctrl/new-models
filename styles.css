@@ -36,13 +36,12 @@ body{font-family:var(--sans);background:var(--sky-low);color:var(--ink);overflow
 .sky__amp{font-size:clamp(1.6rem,8vw,3rem);color:var(--gold);font-style:italic}
 .sky__hint{margin-top:1.6rem;font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;color:var(--blue)}
 
-/* Clouds */
-.cloud{position:absolute;z-index:3;background:var(--cloud);border-radius:50%;filter:blur(.5px);box-shadow:0 30px 60px rgba(31,111,178,.18)}
-.cloud::before,.cloud::after{content:'';position:absolute;background:var(--cloud);border-radius:50%}
-.cloud--l{width:70vw;height:70vw;top:10%;left:-35vw}
-.cloud--r{width:70vw;height:70vw;top:6%;right:-35vw}
-.cloud--bl{width:80vw;height:80vw;bottom:-30vw;left:-30vw}
-.cloud--br{width:80vw;height:80vw;bottom:-32vw;right:-30vw}
+/* Clouds (PNG image) */
+.cloud{position:absolute;z-index:3;background-image:url('https://cncmari32-ctrl.github.io/wedding-invite-demo/assets/tild3763-3632-4530-b736-383739313133_noroot.png');background-size:contain;background-repeat:no-repeat;background-position:center;filter:drop-shadow(0 24px 40px rgba(31,111,178,.18))}
+.cloud--l{width:90vw;height:60vw;top:6%;left:-30vw;background-position:left center}
+.cloud--r{width:90vw;height:60vw;top:2%;right:-30vw;background-position:right center;transform:scaleX(-1)}
+.cloud--bl{width:95vw;height:60vw;bottom:-12vw;left:-32vw;background-position:left center}
+.cloud--br{width:95vw;height:60vw;bottom:-14vw;right:-32vw;background-position:right center;transform:scaleX(-1)}
 
 /* Reveal */
 .reveal{background:linear-gradient(180deg,var(--sky-low),#fff);padding:clamp(5rem,20vw,9rem) 1.5rem;text-align:center}
