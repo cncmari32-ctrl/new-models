@@ -75,16 +75,21 @@ if(sky){
       .to('.sky__sun',{scale:1.3,opacity:.4,ease:'none'},0);
     gsap.to(vis('.deco--l'),{x:'+=14',duration:6,repeat:-1,yoyo:true,ease:'sine.inOut'});
     gsap.to(vis('.deco--r'),{x:'-=14',duration:7,repeat:-1,yoyo:true,ease:'sine.inOut'});
-  } else {
-    /* flowers bloom: start tiny + faded, grow to full while gently rotating */
+  } else if(theme==='red'){
+    /* RUBY: flowers bloom from the corners inward, swirling open + names brighten */
     const flowers=vis('.deco');
-    gsap.set(flowers,{scale:.15,opacity:0,transformOrigin:'center center'});
-    flowers.forEach((f,i)=>{
-      ct.to(f,{scale:1,opacity:1,rotation:(i%2?6:-6),ease:'power2.out'},0);
-    });
-    ct.to('.sky__center',{y:-10,ease:'none'},0);
-    /* gentle idle sway after bloom */
-    flowers.forEach((f,i)=>gsap.to(f,{rotation:(i%2?'+=3':'-=3'),duration:5+i,repeat:-1,yoyo:true,ease:'sine.inOut'}));
+    gsap.set(flowers,{scale:.1,opacity:0,rotation:-30,transformOrigin:'center center'});
+    flowers.forEach((f,i)=>{ct.to(f,{scale:1.05,opacity:1,rotation:(i%2?10:-10),ease:'back.out(1.4)'},0);});
+    ct.fromTo('.sky__center',{filter:'brightness(.7)'},{filter:'brightness(1.15)',scale:1.04,ease:'none'},0)
+      .to('.sky__sun',{opacity:.6,scale:1.2,ease:'none'},0);
+    flowers.forEach((f,i)=>gsap.to(f,{rotation:(i%2?'+=4':'-=4'),duration:5+i,repeat:-1,yoyo:true,ease:'sine.inOut'}));
+  } else {
+    /* SAGE/WHITE: flowers grow upward like blossoming stems + soft fade-in */
+    const flowers=vis('.deco');
+    gsap.set(flowers,{scale:.2,opacity:0,yPercent:25,transformOrigin:'bottom center'});
+    flowers.forEach((f,i)=>{ct.to(f,{scale:1,opacity:1,yPercent:0,ease:'power3.out'},i*0.04);});
+    ct.to('.sky__center',{y:-14,letterSpacing:'+=2px',ease:'none'},0);
+    flowers.forEach((f,i)=>gsap.to(f,{y:'+=8',duration:4+i,repeat:-1,yoyo:true,ease:'sine.inOut'}));
   }
 }
 

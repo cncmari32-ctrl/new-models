@@ -18,23 +18,23 @@ body[data-theme='blue'] .deco--cloud{display:block}
 body[data-theme='blue'] .deco--flower,
 body[data-theme='blue'] .deco--svg{display:none}
 
-/* ---------- RED (warm + flowers) ---------- */
+/* ---------- RED / RUBY (deep romantic) ---------- */
 body[data-theme='red']{
-  --sky-top:#f7d9dd;--sky-mid:#f1bcc6;--sky-low:#fff4f3;
-  --c1:#a11d2e;--c2:#e08aa0;--c-deep:#6b0f1d;--ink:#3a0a12;
-  --accent:#caa15a;--paper:#fff4f3;
-  --hero-grad:linear-gradient(180deg,#f7d9dd 0%,#f1bcc6 55%,#fff4f3 100%);
+  --sky-top:#5a0c1a;--sky-mid:#8c1428;--sky-low:#2a0309;
+  --c1:#e23a52;--c2:#f0a8b4;--c-deep:#f3d9d0;--ink:#f3d9d0;
+  --accent:#e8c477;--paper:#2a0309;
+  --hero-grad:radial-gradient(120% 90% at 50% 15%,#8c1428 0%,#5a0c1a 50%,#2a0309 100%);
 }
 body[data-theme='red'] .deco--flower{display:block}
 body[data-theme='red'] .deco--cloud,
 body[data-theme='red'] .deco--svg{display:none}
 
-/* ---------- WHITE (minimal + SVG line art) ---------- */
+/* ---------- WHITE / SAGE (soft botanical) ---------- */
 body[data-theme='white']{
-  --sky-top:#ffffff;--sky-mid:#f6f5f2;--sky-low:#ffffff;
-  --c1:#1a1a1a;--c2:#b8b1a6;--c-deep:#111111;--ink:#1a1a1a;
-  --accent:#caa15a;--paper:#ffffff;
-  --hero-grad:linear-gradient(180deg,#ffffff 0%,#f6f5f2 60%,#ffffff 100%);
+  --sky-top:#eef1ea;--sky-mid:#e3e8dc;--sky-low:#f7f8f4;
+  --c1:#6f7d5e;--c2:#aab79a;--c-deep:#3f4a33;--ink:#3f4a33;
+  --accent:#c2a15f;--paper:#f7f8f4;
+  --hero-grad:linear-gradient(180deg,#f7f8f4 0%,#e3e8dc 55%,#eef1ea 100%);
 }
 body[data-theme='white'] .deco--svg{display:block}
 body[data-theme='white'] .deco--cloud,
