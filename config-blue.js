@@ -84,10 +84,10 @@ window.WEDDING_CONFIG = {
   /* ---- RSVP ----
      Point at a Google Apps Script web app bound to your Google Sheet.
      Leave '' to store replies locally (demo mode). */
-  rsvpEndpoint: '',
+  rsvpEndpoint: 'https://script.google.com/macros/s/AKfycbwh8gcVodt4uJkdnOP9yIFdfDZufkw0o4TcXPqfV3nHy_mT70UkhkPxnmgpwxNwYhJk/exec',
   rsvpDeadline: 'Kindly reply by the first of August.',
 
   /* ---- Guestbook: reads notes from the same Sheet (GET -> JSON).
      Leave '' to show demo notes. Usually the same /exec URL as rsvpEndpoint. */
-  guestbookEndpoint: '',
+  guestbookEndpoint: 'https://script.google.com/macros/s/AKfycbwh8gcVodt4uJkdnOP9yIFdfDZufkw0o4TcXPqfV3nHy_mT70UkhkPxnmgpwxNwYhJk/exec',
 };
